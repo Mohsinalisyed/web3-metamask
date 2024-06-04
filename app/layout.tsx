@@ -8,6 +8,10 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+import { WagmiConfig } from "./wagmi-provider";
+import { cookieToInitialState } from "wagmi";
+import { config } from "./config";
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +35,8 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+  }) {
+  const initialState = cookieToInitialState(config, headers().get('cookie'))
   return (
     <html suppressHydrationWarning lang="en">
       <head />
@@ -40,8 +45,8 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}
-      >
-        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+      ><WagmiConfig>
+          <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }} initialState={initialState}>
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
@@ -59,7 +64,8 @@ export default function RootLayout({
               </Link>
             </footer>
           </div>
-        </Providers>
+          </Providers>
+        </WagmiConfig>
       </body>
     </html>
   );
