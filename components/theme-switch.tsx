@@ -38,8 +38,11 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
     onChange,
   });
 
+  // Cast Component to any to bypass the type error
+  const SwitchComponent: any = Component;
+
   return (
-    <Component
+    <SwitchComponent
       {...getBaseProps({
         className: clsx(
           "px-px transition-opacity hover:opacity-80 cursor-pointer",
@@ -76,6 +79,6 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
           <MoonFilledIcon size={22} />
         )}
       </div>
-    </Component>
+    </SwitchComponent>
   );
 };
