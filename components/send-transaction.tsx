@@ -6,7 +6,7 @@ import {
 } from 'wagmi'
 import { parseEther } from 'viem'
 import { Button } from '@nextui-org/button'
-
+import { Input } from "@nextui-org/input";
 export function SendTransaction() {
     const {
         data: hash,
@@ -29,11 +29,10 @@ export function SendTransaction() {
         })
 
     return (
-        <form onSubmit={submit}>
-            <input name="address" placeholder="0xA0Cf…251e" required />
+        <form onSubmit={submit} className='w-full'>
+            <Input name="address" placeholder="0xA0Cf…251e" label="Wallet Address" isRequired />
             <br />
-            <br />
-            <input name="value" placeholder="0.05" required />
+            <Input name="value" placeholder="0.05" label="Amount" isRequired/>
             <br />
             <Button
                 disabled={isPending}
@@ -41,8 +40,9 @@ export function SendTransaction() {
             >
                 {isPending ? 'Confirming...' : 'Send'}
             </Button>
+            <br />
             {hash && <div>Transaction Hash: {hash}</div>}
-            {isConfirming ? <div>Waiting for confirmation...</div> : <div>Transaction confirmed.</div>}
+            {isConfirmed && <div>Transaction confirmed.</div>}
             {error && (
                 <div>Error: {(error as BaseError).shortMessage || error.message}</div>
             )}
