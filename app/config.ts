@@ -1,10 +1,8 @@
-import { http, createConfig, cookieStorage, createStorage } from 'wagmi'
-import { mainnet, sepolia, base, zora, celo, optimism } from 'wagmi/chains'
-import { injected, metaMask, safe, walletConnect } from 'wagmi/connectors'
-
-declare module 'wagmi' {
+import { http, createConfig, cookieStorage, createStorage } from "wagmi";
+import { mainnet, sepolia, base, zora, celo, optimism } from "wagmi/chains";
+declare module "wagmi" {
   interface Register {
-    config: typeof config
+    config: typeof config;
   }
 }
 
@@ -23,4 +21,4 @@ export const config = createConfig({
     [celo.id]: http(),
     [optimism.id]: http(),
   },
-})
+});
