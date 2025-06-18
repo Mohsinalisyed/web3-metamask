@@ -2,11 +2,8 @@ import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
-import { headers } from "next/headers";
-import { cookieToInitialState } from "wagmi";
 
 import { Providers } from "./providers";
-import { config } from "./config";
 
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
@@ -35,8 +32,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const initialState = cookieToInitialState(config, headers().get("cookie"));
-
   return (
     <html suppressHydrationWarning lang="en">
       <head />
@@ -46,10 +41,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Providers
-          initialState={initialState}
-          themeProps={{ attribute: "class", defaultTheme: "dark" }}
-        >
+        <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
